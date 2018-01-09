@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vue</title>    
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>    
+</head>
+<body>
+   
+
+
+<div id="counter2">
+    <button @click="counter++">Increase</button>
+    <button @click="counter--">Decrease</button>
+    <button @click="secondCounter++">Increase Second</button>
+    <p>Counter: {{ counter }} | {{ secondCounter }}</p>
+    <p>Result: {{ result() }} | {{ output }} </p>
+</div>
+
+
+<div id="app">
+<h3 v-once> {{ title }}</h3>
+<input type="text" v-on:input="changeTitle">
+<p>{{ sayHello() }} - <a v-bind:href="link">V-bind</a>
+<a :href="link"> colon only</a>
+</p>
+<p v-html="finishedLink"></p>
+
+</div>
+<hr>
+<h3>counter</h3>
+<div id="counter">
+  <button v-on:click="increase(2, $event)">Plus 2</button>
+  <button v-on:click="counter++">Plus 1</button>
+  <p>Counter {{ counter }}</p>
+  <p>Counter times 2 = {{ counter * 2}}</p>
+  <p>Greater than 10? {{ counter > 10 ? 'Yes' : 'No' }}</p>
+  <p v-on:mousemove="updateCoordinates">Mouse Coordinates: {{ x }} / {{ y }}
+  - <span v-on:mousemove.stop="">DEAD SPOT</span></p>  
+  <p>Alert on space and enter <input type="text" v-on:keyup.enter.space="alertMe"></p>
+</div>   
+<hr>
+<h3>Name change</h3>
+<div id="nameChange">
+    <input type="text" v-model="name">
+    <p>{{ name }}</p>
+</div>
+
+
+<script>
+new Vue({
+    el: "#counter2",
+    data: {
+        counter: 0,
+        secondCounter: 0
+    },
+    computed:{
+        output: function(){
+            return this.counter > 5 ? 'Yes' : 'No';
+        }
+    },
+    watch: {
+      counter: function(value){
+          var  vm = this;
+          setTimeout(function(){
+              vm.counter = 0;
+          }, 5000)
+      }  
+    },
+    methods:{
+        result: function() {
+            return this.counter > 5 ? 'Yes' : 'No';
+        }
+    }
+    
+    
+});    
+    
+    
+new Vue({
+ el: '#app', 
+ data: {
+   title: 'Hello World!',
+   link: 'http://google.com',
+   finishedLink: '<a href="http://google.com">Google</a>'
+ },
+ methods: {
+ 	changeTitle: function(event) {
+   this.title = event.target.value;
+  },
+  sayHello: function (){
+    this.title = 'Hello!';
+  	return this.title;
+  }
+ }
+});
+
+new Vue({
+ el: '#counter',
+ data: {
+ counter: 0,
+ x: 0,
+ y: 0
+ },
+ methods: {
+ increase: function(step, event) {
+ this.counter += step;
+ },
+ updateCoordinates: function(event){
+ this.x = event.clientX;
+ this.y = event.clientY;
+ },
+ alertMe: function(){
+ alert('Alert!')
+ }
+ }
+});
+    
+new Vue ({
+   el: '#nameChange',
+    data: {
+        name: 'Steve'
+    }
+});    
+    
+</script>
+    
+</body>
+</html>

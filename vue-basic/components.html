@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Components</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>
+</head>
+
+<body>
+
+<div id="app">
+    <h1>Components</h1>
+    <my-cmp></my-cmp>
+    <hr>
+    <my-cmp></my-cmp>
+</div>
+
+<div id="app2">
+    <h1>Components</h1>
+    <my-cmp></my-cmp>
+    <hr>
+    <my-cmp></my-cmp>
+</div>
+
+<script>
+// Register Globally    
+//    Vue.component('my-cmp', {
+        var cmp = {
+        data: function() {
+            return {
+                status: 'Critical'
+            };
+        },
+        template: '<p>Server Status: {{ status }} <button @click="changeStatus">Change</button></p>',
+        methods: {
+            changeStatus: function() {
+                this.status = 'Normal';
+            }
+        }
+    }
+//    )
+
+
+    new Vue({
+        el: '#app'
+    })
+
+    new Vue({
+        el: '#app2',
+        components: {
+            'my-cmp': cmp
+        }
+    })
+</script>
+
+<style>
+
+</style>
+
+
+</body>
+</html>

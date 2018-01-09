@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>V-if, V-else, V-show</title>
+    <script src="https://unpkg.com/vue/dist/vue.js"></script>  
+</head>
+<body>
+    <div id="app">
+        <p v-if="show">V-if<span> Nested</span></p>
+        <p v-else>V-else</p>
+        
+        <template v-if="show"> 
+        <h3>Template</h3>
+        <p>Text in template</p>
+        </template>
+        <p>Three</p>
+        <p v-show="show">v-show</p>
+        <button @click="show = !show">Switch</button>
+    </div>
+    
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                 show: true
+                }     
+        });
+        
+    </script>
+</body>
+</html>
